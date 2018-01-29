@@ -7,23 +7,34 @@ using System.Threading.Tasks;
 namespace Complex
 {
     class Complex
-    {   
+    {
+        public int a;
+        public int b;
+        public Complex(int x, int y)
+        {
+            this.a = x;
+            this.b = y;
+        }
+
         public static Complex operator +(Complex c1, Complex c2)
         {
-
+            int a = c1.a + c2.a;
+            int b = c2.b + c2.b;
+            return new Complex(a,b);
         }
+        public override string ToString()
+        {
+            return a + " " + b;
+        }
+    }
+    class Program
+    {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите комплексное число:");
-            string a = Console.ReadLine();
-            string[] numbers = a.Split(' ');
-            string[] numbers1 = new string [4];
-            int[] numbers2 = new int[4];
-            for(int i = 0; i < 4; ++i)
-            {
-                numbers1 = numbers[i].Split('/');
-                numbers2 = int.Parse(numbers1);
-            }
+            Complex c1 = new Complex(2, 7);
+            Complex c2 = new Complex(3, 7);
+            Complex c3 = c1 + c2;
+            Console.WriteLine(c3);
         }
     }
 }
