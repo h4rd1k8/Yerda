@@ -17,7 +17,7 @@ namespace PP2_W3D1
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(50, 50);
+            Console.SetWindowSize(45, 45);
             FAR far = new FAR(@"C:\");
 
             bool quit = false;
@@ -116,11 +116,13 @@ namespace PP2_W3D1
 
         private void DrawStatusBar()
         {
-            Console.SetCursorPosition(0, 48);
+            Console.SetCursorPosition(0, 43);
             Console.BackgroundColor = ConsoleColor.DarkGray;
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(mode);
             Console.WriteLine(activeLayer.path);
+            Console.SetCursorPosition(10, 43);
+            Console.WriteLine(activeLayer.items.Count);
         }
 
         private void DrawFileReader()
@@ -168,6 +170,7 @@ namespace PP2_W3D1
                 if (i == activeLayer.index)
                 {
                     Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
                 }
                 else
                 {
@@ -182,8 +185,12 @@ namespace PP2_W3D1
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                 }
-
-                Console.WriteLine(activeLayer.items[i].Name);
+                Console.Write   (activeLayer.items[i].Name);
+                for (int j = 1; j <= 30 - activeLayer.items[i].Name.Length; ++j)
+                {
+                    Console.Write(' ');
+                }
+                Console.WriteLine('*');
             }
         }
 
