@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stek", "stek\stek.csproj", "{7EEC2624-725C-4BCE-AE9F-B7157B9C3F56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EEC2624-725C-4BCE-AE9F-B7157B9C3F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EEC2624-725C-4BCE-AE9F-B7157B9C3F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EEC2624-725C-4BCE-AE9F-B7157B9C3F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EEC2624-725C-4BCE-AE9F-B7157B9C3F56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83436006-1E66-4543-8B00-FD38CC779727}
+	EndGlobalSection
+EndGlobal
