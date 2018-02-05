@@ -5,64 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FAR_1._1_test
+namespace FAR_1
 {
-
-    enum FarMode
-    {
-        Explorer,
-        FileReader
-    }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.SetWindowSize(45, 45);
-            FAR far = new FAR(Console.ReadLine());
-
-            bool quit = false;
-
-            while (!quit)
-            {
-                far.Draw();
-                ConsoleKeyInfo pressedKey = Console.ReadKey();
-                switch (pressedKey.Key)
-                {
-                    case ConsoleKey.Escape:
-                        quit = true;
-                        break;
-                    case ConsoleKey.UpArrow:
-                    case ConsoleKey.DownArrow:
-                    case ConsoleKey.Backspace:
-                    case ConsoleKey.Enter:
-                        far.Process(pressedKey);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }
-
     class Layer
     {
         public DirectoryInfo dirInfo;
         public string path;
         public int index;
         public List<FileSystemInfo> items;
-
         public Layer(string path, int index)
         {
             this.path = path;
             this.index = index;
             this.dirInfo = new DirectoryInfo(path);
-
             items = new List<FileSystemInfo>();
             items.AddRange(dirInfo.GetDirectories());
             items.AddRange(dirInfo.GetFiles());
-
         }
-
         public void Process(int v)
         {
             this.index += v;
@@ -75,24 +34,25 @@ namespace FAR_1._1_test
                 this.index = 0;
             }
         }
-
         public string GetSelectedItemInfo()
         {
             return this.items[index].FullName;
         }
     }
-
+    enum FarMode
+    {
+        Explorer,
+        FileReader
+    }
     class FAR
     {
         Stack<Layer> layerHistory = new Stack<Layer>();
         Layer activeLayer;
         FarMode mode = FarMode.Explorer;
-
         public FAR(string path)
         {
             this.activeLayer = new Layer(path, 0);
         }
-
         public void Draw()
         {
             switch (mode)
@@ -113,23 +73,19 @@ namespace FAR_1._1_test
 
             DrawStatusBar();
         }
-
         private void DrawStatusBar()
         {
-            Console.SetCursorPosition(0, 43);
-            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.SetCursorPosition(0, 38);
+            Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine(mode);
-            Console.WriteLine(activeLayer.path);
-            Console.SetCursorPosition(10, 43);
-            Console.WriteLine("Quantity of elements: "+activeLayer.items.Count);
+            Console.SetCursorPosition(0, 39);
         }
-
         private void DrawFileReader()
         {
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.ForegroundColor = ConsoleColor.White;
             FileStream fs = null;
             StreamReader sr = null;
             try
@@ -143,7 +99,6 @@ namespace FAR_1._1_test
             catch (Exception e)
             {
                 Console.WriteLine("Cannot open file!");
-
             }
             finally
             {
@@ -158,19 +113,16 @@ namespace FAR_1._1_test
                 }
             }
         }
-
         private void DrawExplorer()
         {
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
-
             for (int i = 0; i < activeLayer.items.Count; ++i)
             {
                 if (i == activeLayer.index)
                 {
-                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                 }
                 else
                 {
@@ -185,15 +137,10 @@ namespace FAR_1._1_test
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                 }
-                Console.Write   (activeLayer.items[i].Name);
-                for (int j = 1; j <= 30 - activeLayer.items[i].Name.Length; ++j)
-                {
-                    Console.Write(' ');
-                }
-                Console.WriteLine('*');
+
+                Console.WriteLine(activeLayer.items[i].Name);
             }
         }
-
         public void Process(ConsoleKeyInfo pressedKey)
         {
             switch (pressedKey.Key)
@@ -242,5 +189,33 @@ namespace FAR_1._1_test
 
         }
     }
-
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Environment.GetLogicalDrives();
+            Console.SetWindowSize(40, 40);
+            FAR far = new FAR(Console.ReadLine());
+            bool quit = false;
+            while (!quit)
+            {
+                far.Draw();
+                ConsoleKeyInfo pressedKey = Console.ReadKey();
+                switch (pressedKey.Key)
+                {
+                    case ConsoleKey.Escape:
+                        quit = true;
+                        break;
+                    case ConsoleKey.UpArrow:
+                    case ConsoleKey.DownArrow:
+                    case ConsoleKey.Backspace:
+                    case ConsoleKey.Enter:
+                        far.Process(pressedKey);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
 }
